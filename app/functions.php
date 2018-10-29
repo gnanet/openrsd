@@ -102,6 +102,17 @@ class OpenRSD
     return $updates_result;
 }
 
+    public static function getRebootRequired()
+{
+    $rrq_cmd = shell_exec("LC_ALL=C ls /var/run/reboot* >/dev/null 2>&1 ; echo $?");
+    if ( intval($rrq_cmd) == '0' )
+        {
+            return "<b>Reboot required</b><!-- ".intval($rrq_cmd)." -->";
+        } else {
+            return "<!-- ".intval($rrq_cmd)." -->";
+        }
+}
+
     public static function getPackageDistUpdates()
 {
     $updates_result=array();
@@ -209,3 +220,7 @@ class QuickGit
     }
 }
 
+// Load customizations if the file is present
+if ( file_exists(__DIR__ . '/functions-custom.php') ) {
+    require_once( __DIR__. '/functions-custom.php');
+}

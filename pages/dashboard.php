@@ -81,6 +81,7 @@ if (!isset($_SESSION['username'])) {
                                                                 $aptupdates = OpenRSD::getPackageUpdates();
                                                                 $updates_count = $aptupdates['count'];
                                                                 if ($updates_count == 0) {
+                                                                    echo "\n".OpenRSD::getRebootRequired()."\n";
                                                                     echo "<p>There are currently no packages that need updating.</p>";
                                                                     $updates_summary = $aptupdates['updsum_arr'][0];
                                                                     echo '<p>'.$updates_summary['cnt_upg'].' upgr, '.$updates_summary['cnt_new'].' new, '.$updates_summary['cnt_rem'].' rem,  '.$updates_summary['cnt_notup'].' not upgr.'."</p>\n";
@@ -166,3 +167,8 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
 			</div>
+<?php
+if ( file_exists(__DIR__. '/dashboard-custom.php') ){
+    require_once(__DIR__. '/dashboard-custom.php');
+}
+?>
