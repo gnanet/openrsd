@@ -10,6 +10,14 @@ require_once('app/functions.php');
 if (!isset($_SESSION['username'])) {
     die("You must be logged in to view this page!");
 }
+
+if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
+    $scheme = 'https';
+} else {
+    $scheme = 'http';
+}
+
+
 ?>
 
 <div class="row">
@@ -34,7 +42,7 @@ $(window).onload = function() {
 <div class="row">
 	<div class="col-md-12">
 		<div id="shellinaboxdiv">
-    		<iframe id="shellinaboxframe" src="http://<?php echo $_SERVER['HTTP_HOST']; ?>:4200/" onload="resize_frame()">
+    		<iframe id="shellinaboxframe" src="<?php echo $scheme; ?>://<?php echo $_SERVER['HTTP_HOST']; ?>:4200/" onload="resize_frame()">
 	    		Your browser does not support inline frames.
     		</iframe>
 		</div>
